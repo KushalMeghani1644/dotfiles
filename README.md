@@ -10,3 +10,11 @@ If you use HTTP
 ```bash
 git clone https://github.com/KushalMeghani1644/dotfiles
 ```
+
+Then move the files to the respective places:
+
+- Vim config: ~/.vimrc
+- Neovim config: ~/.config/nvim/initlua
+- Tmux config: ~/.tmux.conf
+
+## Thank you!
