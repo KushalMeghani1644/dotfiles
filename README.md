@@ -17,11 +17,18 @@ Then move the files to the respective places:
 - Neovim config: `~/.config/nvim/init.lua`
 - Tmux config: `~/.tmux.conf`
 
-Or create symbolic links:
+If you prefer, create symbolic links:
 ```bash
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/vim/vimrc ~/.vimrc
+```
+
+Or run the script provided in the repo:
+```bash
+cd ~/dotfiles
+chmod +x clone.sh
+./clone.sh
 ```
 
 ## Thank you!
