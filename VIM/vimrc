@@ -1,0 +1,303 @@
+" ============================
+" Basic Settings
+" ============================
+set nocompatible          " Disable vi compatibility
+filetype plugin indent on  " Enable filetype detection
+syntax on                 " Enable syntax highlighting
+set number                " Show line numbers
+set relativenumber        " Relative line numbers
+set tabstop=4             " Tabs as 4 spaces
+set shiftwidth=4
+set expandtab             " Use spaces instead of tabs
+set autoindent
+set smartindent
+set cursorline            " Highlight current line
+set hidden                " Allow background buffers
+set clipboard=unnamedplus " System clipboard
+set mouse=a               " Enable mouse support
+set ignorecase            " Ignore case in search
+set smartcase             " Case-sensitive if uppercase present
+set incsearch             " Incremental search
+set hlsearch              " Highlight search results
+set splitright            " Vertical split to right
+set splitbelow            " Horizontal split below
+set scrolloff=8           " Keep 8 lines visible when scrolling
+set showcmd               " Show command in bottom bar
+set wildmenu              " Visual autocomplete for command menu
+set laststatus=2          " Always show status line
+set encoding=utf-8        " UTF-8 encoding
+set backspace=indent,eol,start " Intuitive backspace
+
+" Fix paste formatting issues
+set pastetoggle=<F2>      " Toggle paste mode with F2
+
+" ============================
+" Plugin Management
+" ============================
+call plug#begin('~/.vim/plugged')
+
+" Appearance
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'luochen1990/rainbow'
+Plug 'Yggdroot/indentLine'
+" Productivity
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'        " Easy commenting
+Plug 'tpope/vim-surround'          " Surround text objects
+Plug 'preservim/nerdtree'          " File explorer
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'            " Fuzzy finder
+
+" LSP and Autocompletion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Language Support
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'rhysd/vim-clang-format'      " C++ formatting
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+Plug 'ziglang/zig.vim'
+
+call plug#end()
+
+" ============================
+" Bracket/Indent Visualization
+" ============================
+" Rainbow parentheses/brackets
+let g:rainbow_active = 1
+
+" Indent guides (lines connecting nested blocks)
+let g:indentLine_enabled = 1
+let g:indentLine_char = '│'
+
+" Highlight matching pairs when cursor is on a bracket
+set showmatch
+let g:matchparen_timeout = 100
+let g:matchparen_insert_timeout = 30
+highlight MatchParen cterm=bold ctermbg=none ctermfg=Yellow gui=bold guifg=#fabd2f guibg=NONE
+
+
+" ============================
+" Color Scheme
+" ============================
+syntax enable
+set termguicolors
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+
+" ============================
+" Airline Configuration
+" ============================
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" ============================
+" Coc.nvim Configuration
+" ============================
+let g:coc_global_extensions = [
+  \ 'coc-rust-analyzer',
+  \ 'coc-go',
+  \ 'coc-clangd',
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-toml'
+  \ ]
+
+" Enable virtual text for diagnostics (error lens)
+let g:coc_diagnostic_enable = 1
+let g:coc_diagnostic_virtual_text = 1
+let g:coc_diagnostic_virtual_text_prefix = " ❯ "
+let g:coc_diagnostic_virtual_text_align = "after"
+
+" Use <Tab> for trigger completion and navigate
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Apply code actions to the selected region
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Diagnostic navigation
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Highlight symbol under cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" ============================
+" Rust Configuration
+" ============================
+let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
+
+autocmd FileType rust setlocal shiftwidth=4 tabstop=4
+autocmd FileType rust nmap <buffer> <leader>r :!cargo run<CR>
+autocmd FileType rust nmap <buffer> <leader>t :!cargo test<CR>
+autocmd FileType rust nmap <buffer> <leader>b :!cargo build<CR>
+autocmd FileType rust nmap <buffer> <leader>c :!cargo check<CR>
+
+" ============================
+" Go Configuration
+" ============================
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+
+autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
+autocmd FileType go nmap <buffer> <leader>r :GoRun<CR>
+autocmd FileType go nmap <buffer> <leader>t :GoTest<CR>
+autocmd FileType go nmap <buffer> <leader>b :GoBuild<CR>
+autocmd FileType go nmap <buffer> <leader>c :GoCoverage<CR>
+
+" ============================
+" C++ Configuration
+" ============================
+let g:clang_format#auto_format = 1
+let g:clang_format#detect_style_file = 1
+
+autocmd FileType cpp,c setlocal shiftwidth=2 tabstop=2
+autocmd FileType cpp,c nmap <buffer> <leader>f :ClangFormat<CR>
+
+" ============================
+" Zig Configuration
+" ============================
+let g:zig_fmt_autosave = 1
+autocmd FileType zig setlocal shiftwidth=4 tabstop=4 expandtab
+autocmd FileType zig nmap <buffer> <leader>r :!zig run %<CR>
+autocmd FileType zig nmap <buffer> <leader>t :!zig build test<CR>
+autocmd FileType zig nmap <buffer> <leader>b :!zig build<CR>
+
+autocmd FileType cpp,c nmap <buffer> <leader>b :!make<CR>
+
+" ============================
+" NERDTree Configuration
+" ============================
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFind<CR>
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.git$', '\.DS_Store$', '__pycache__']
+
+" Close NERDTree if it's the only window remaining
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" ============================
+" FZF Configuration
+" ============================
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+
+" ============================
+" General Keymaps
+" ============================
+let mapleader = " "
+
+" Save and quit shortcuts
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
+" Clear search highlighting
+nnoremap <leader>h :nohlsearch<CR>
+
+" Better copying - copy to system clipboard in visual mode
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Paste from system clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+
+" Copy entire file to clipboard
+nnoremap <leader>ya gg"+yG
+
+" Better window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Resize windows with arrows
+nnoremap <C-Up> :resize +2<CR>
+nnoremap <C-Down> :resize -2<CR>
+nnoremap <C-Left> :vertical resize -2<CR>
+nnoremap <C-Right> :vertical resize +2<CR>
+
+" Move text up and down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Stay in indent mode
+vnoremap < <gv
+vnoremap > >gv
+
+" ============================
+" Performance Settings
+" ============================
+set updatetime=300       " Faster completion
+set timeoutlen=500       " Faster key sequence completion
+set signcolumn=yes       " Prevent text shifting
+set shortmess+=c         " Don't pass messages to ins-completion-menu
+
+" ============================
+" Backup and Undo
+" ============================
+set nobackup
+set nowritebackup
+set noswapfile
+set undofile
+set undodir=~/.vim/undodir
