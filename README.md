@@ -13,8 +13,15 @@ git clone https://github.com/KushalMeghani1644/dotfiles
 
 Then move the files to the respective places:
 
-- Vim config: ~/.vimrc
-- Neovim config: ~/.config/nvim/initlua
-- Tmux config: ~/.tmux.conf
+- Vim config: `~/.vimrc`
+- Neovim config: `~/.config/nvim/init.lua`
+- Tmux config: `~/.tmux.conf`
+
+Or create symbolic links:
+```bash
+ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/vim/vimrc ~/.vimrc
+```
 
 ## Thank you!
