@@ -31,4 +31,9 @@ chmod +x clone.sh
 ./clone.sh
 ```
 
+
+## LICENSE
+
+This repository is licensed under the Apache 2.0 LICENSE, see [LICENSE](LICENSE) for more details.
+
 ## Thank you!
