@@ -61,6 +61,8 @@ Plug 'rhysd/vim-clang-format'      " C++ formatting
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'ziglang/zig.vim'
+Plug 'APZelos/blamer.nvim'
+Plug 'ludovicchabant/vim-lawrencium'
 
 call plug#end()
 
@@ -301,3 +303,5 @@ set nowritebackup
 set noswapfile
 set undofile
 set undodir=~/.vim/undodir
+
+let g:blamer_enabled = 1
