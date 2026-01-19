@@ -1,0 +1,123 @@
+font-family = "FantasqueSansM Nerd Font Mono"
+font-family-bold = "FantasqueSansM Nerd Font Mono"
+font-family-italic = "FantasqueSansM Nerd Font Mono"
+font-size = 14
+font-thicken = true
+
+font-feature = "+liga"
+font-feature = "+calt"
+font-feature = "+ss01"
+window-padding-x = 16
+window-padding-y = 12,16
+window-padding-balance = true
+window-padding-color = "extend"
+window-decoration = false
+window-height = 38
+window-width = 120
+window-save-state = "always"
+window-theme = "ghostty"
+
+background-opacity = 0.92
+cursor-style = "block"
+cursor-style-blink = true
+cursor-color = #f5c2e7
+cursor-text = #11111b
+
+adjust-cursor-thickness = 2
+adjust-cursor-height = 0%
+
+background = #1e1e2e
+foreground = #cdd6f4
+
+selection-background = #45475a
+selection-foreground = #cdd6f4
+selection-invert-fg-bg = false
+
+palette = 0=#45475a
+palette = 8=#585b70
+
+palette = 1=#f38ba8
+palette = 9=#f38ba8
+
+palette = 2=#a6e3a1
+palette = 10=#a6e3a1
+
+palette = 3=#f9e2af
+palette = 11=#f9e2af
+
+palette = 4=#89b4fa
+palette = 12=#89b4fa
+
+palette = 5=#f5c2e7
+palette = 13=#f5c2e7
+
+palette = 6=#94e2d5
+palette = 14=#94e2d5
+
+palette = 7=#bac2de
+palette = 15=#a6adc8
+
+bold-is-bright = false
+
+scrollback-limit = 25000
+
+bell-features = "title,attention"
+
+shell-integration = "detect"
+shell-integration-features = "cursor,sudo,title"
+copy-on-select = true
+clipboard-read = "allow"
+clipboard-write = "allow"
+clipboard-paste-protection = true
+confirm-close-surface = false
+
+gtk-single-instance = true
+gtk-titlebar = false
+gtk-tabs-location = "hidden"
+gtk-wide-tabs = false
+desktop-notifications = true
+
+adjust-cell-height = 4
+adjust-cell-width = 0
+
+minimum-contrast = 1.0
+alpha-blending = "linear-corrected"
+freetype-load-flags = "no-hinting"
+
+# Underline styling
+adjust-underline-thickness = 1
+adjust-underline-position = 2
+
+# Box drawing perfectionism
+adjust-box-thickness = 1
+
+# Link styling
+link-url = true
+
+mouse-scroll-multiplier = "precision:0.15,discrete:3"
+mouse-hide-while-typing = true
+
+# Font control
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+
+# Navigation
+keybind = ctrl+shift+up=jump_to_prompt:-1
+keybind = ctrl+shift+down=jump_to_prompt:1
+
+# Splits
+keybind = ctrl+shift+enter=new_split:auto
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+j=goto_split:bottom
+keybind = ctrl+shift+k=goto_split:top
+keybind = ctrl+shift+z=toggle_split_zoom
+keybind = ctrl+shift+w=close_surface
+
+# Scrollback
+keybind = ctrl+shift+u=scroll_page_up
+keybind = ctrl+shift+d=scroll_page_down
+
+# Inspector (for debugging)
+keybind = ctrl+shift+i=inspector:toggle
