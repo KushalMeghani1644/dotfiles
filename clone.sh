@@ -28,5 +28,9 @@ ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 # Vim
 ln -sf "$DOTFILES_DIR/vim/vimrc" "$HOME/.vimrc"
 
+# Ghostty
+mkdir -p "$HOME/.config/ghostty"
+ln -sf "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
+
 echo "All done! Your dotfiles are now set up."
 
