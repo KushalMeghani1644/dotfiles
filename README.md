@@ -16,12 +16,14 @@ Then move the files to the respective places:
 - Vim config: `~/.vimrc`
 - Neovim config: `~/.config/nvim/init.lua`
 - Tmux config: `~/.tmux.conf`
+- Ghostty conffig: `~/.config/ghostty/config`
 
 If you prefer, create symbolic links:
 ```bash
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/vim/vimrc ~/.vimrc
+ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
 Or run the script provided in the repo:
